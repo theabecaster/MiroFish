@@ -52,12 +52,13 @@ Marketers can simulate audience reactions to their creative before spending real
 
 ## Context
 
-**Brownfield project.** MiroFish is an existing multi-agent simulation engine with a Vue 3 frontend and Flask backend. Preflight is a new Next.js application living in `preflight/` within this repo, providing a marketer-friendly interface on top of MiroFish's capabilities.
+**Two-repo project.** MiroFish is an existing multi-agent simulation engine with a Vue 3 frontend and Flask backend. Preflight is a **separate repo** (`git@github.com:theabecaster/preflight.git`) — a standalone Next.js application providing a marketer-friendly interface that calls MiroFish's API remotely.
 
 **Architecture split:**
-- `preflight/` — Next.js 14 (App Router) deployed on Vercel. Handles all Preflight-specific logic via API routes: auth, profiles, credits, Stripe webhooks, LLM calls for creative analysis and audience building.
-- `backend/` — Existing Flask backend on Hetzner. Gets minimal additions: API key auth layer and a simplified pipeline endpoint. All heavy simulation work stays here.
-- Frontend calls Flask over HTTPS with configurable `MIROFISH_API_URL` env var.
+- **Preflight repo** (`github.com/theabecaster/preflight`) — Next.js 15 (App Router) deployed on Vercel. Handles all Preflight-specific logic via API routes: auth, profiles, credits, Stripe webhooks, LLM calls for creative analysis and audience building.
+- **MiroFish repo** (`github.com/theabecaster/MiroFish`) — Existing Flask backend on Hetzner. Gets minimal additions: API key auth layer and a simplified pipeline endpoint. All heavy simulation work stays here.
+- Preflight calls MiroFish Flask over HTTPS with configurable `MIROFISH_API_URL` env var (localhost for dev, Hetzner URL for production).
+- Planning artifacts (`.planning/`) live in the MiroFish repo since both repos are in scope.
 
 **Target users:**
 - Primary: In-house marketing managers at DTC brands ($1M-$20M revenue), spending $500-$5K/mo on paid social
@@ -72,7 +73,7 @@ Marketers can simulate audience reactions to their creative before spending real
 
 ## Constraints
 
-- **Tech stack (frontend):** Next.js 14 App Router, TypeScript — deployed on Vercel
+- **Tech stack (frontend):** Next.js 15 App Router, TypeScript — deployed on Vercel, separate repo
 - **Tech stack (backend):** Supabase (Auth, DB, Storage, Realtime), Stripe for payments
 - **Tech stack (simulation):** Existing Flask + MiroFish pipeline on Hetzner — extend, don't rewrite
 - **License:** AGPL-3.0 — all source code must be publicly available
@@ -88,8 +89,9 @@ Marketers can simulate audience reactions to their creative before spending real
 | Credits over subscription | Marketers run campaigns in bursts; no churn problem; lower onboarding friction | — Pending |
 | User brings own LLM key | Eliminates LLM cost for Preflight; already validated on mirofish.live | — Pending |
 | Supabase for auth + DB + storage + realtime | Free tier sufficient for MVP; consolidates infrastructure; great DX | — Pending |
-| Preflight lives in MiroFish repo | AGPL compliance easier; shared backend; single source of truth | — Pending |
+| Preflight in separate repo (theabecaster/preflight) | Clean separation of concerns; independent deploy on Vercel; MiroFish stays focused | — Pending |
 | Configurable backend URL | Local dev with `localhost:5001`, production points to Hetzner | — Pending |
+| Next.js 15 over 14 | Stable, React 19 built in, Turbopack dev is 5-10x faster HMR, avoids forced migration | — Pending |
 
 ## Evolution
 
