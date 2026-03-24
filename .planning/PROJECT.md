@@ -56,7 +56,8 @@ Marketers can simulate audience reactions to their creative before spending real
 
 **Architecture split:**
 - **Preflight repo** (`github.com/theabecaster/preflight`) — Next.js 15 (App Router) deployed on Vercel. Handles all Preflight-specific logic via API routes: auth, profiles, credits, Stripe webhooks, LLM calls for creative analysis and audience building.
-- **MiroFish repo** (`github.com/theabecaster/MiroFish`) — Existing Flask backend on Hetzner. Gets minimal additions: API key auth layer and a simplified pipeline endpoint. All heavy simulation work stays here.
+- **MiroFish repo** (`github.com/theabecaster/MiroFish`) — Existing Flask backend on Hetzner. Gets minimal additions: API key auth, simplified pipeline endpoint, accepts user LLM key in requests, and calls Preflight callback URL on status changes. All heavy simulation work stays here.
+- **Data flow rule:** Only Preflight backend talks to Supabase. Flask never connects to Supabase directly. When Flask needs to push status updates, it calls a callback endpoint on Preflight (`PREFLIGHT_CALLBACK_URL` env var), and Preflight writes to Supabase.
 - Preflight calls MiroFish Flask over HTTPS with configurable `MIROFISH_API_URL` env var (localhost for dev, Hetzner URL for production).
 - Planning artifacts (`.planning/`) live in the MiroFish repo since both repos are in scope.
 
