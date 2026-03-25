@@ -12,6 +12,11 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   config => {
+    // API密钥认证 (D-12) — Bearer令牌从环境变量注入
+    const apiKey = import.meta.env.VITE_API_KEY
+    if (apiKey) {
+      config.headers['Authorization'] = `Bearer ${apiKey}`
+    }
     return config
   },
   error => {
