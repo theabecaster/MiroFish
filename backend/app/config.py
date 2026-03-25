@@ -34,6 +34,9 @@ class Config:
     
     # Zep配置
     ZEP_API_KEY = os.environ.get('ZEP_API_KEY')
+
+    # Preflight集成配置
+    PREFLIGHT_API_KEY = os.environ.get('PREFLIGHT_API_KEY', '')
     
     # 文件上传配置
     MAX_CONTENT_LENGTH = 50 * 1024 * 1024  # 50MB

@@ -9,7 +9,7 @@ import warnings
 # 需要在所有其他导入之前设置
 warnings.filterwarnings("ignore", message=".*resource_tracker.*")
 
-from flask import Flask, request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 from .config import Config
@@ -38,7 +38,9 @@ def create_app(config_class=Config):
         logger.info("=" * 50)
         logger.info("MiroFish Backend 启动中...")
         logger.info("=" * 50)
-    
+        if not config_class.PREFLIGHT_API_KEY:
+            logger.warning("PREFLIGHT_API_KEY 未配置 — API端点将拒绝所有请求")
+
     # 启用CORS
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     
@@ -48,6 +50,24 @@ def create_app(config_class=Config):
     if should_log_startup:
         logger.info("已注册模拟进程清理函数")
     
+    # API密钥认证中间件 — 必须在日志中间件之前注册（auth优先）
+    @app.before_request
+    def require_api_key():
+        """API密钥验证中间件 — 所有/api/*路径需要Bearer令牌"""
+        # 健康检查免除认证 (D-03)
+        if request.path == '/health':
+            return None
+        # 仅保护/api/*路径 (D-02)
+        if not request.path.startswith('/api/'):
+            return None
+        auth_header = request.headers.get('Authorization', '')
+        if not auth_header.startswith('Bearer '):
+            return jsonify({"success": False, "error": "Missing or invalid Authorization header"}), 401
+        token = auth_header[len('Bearer '):]
+        if token != config_class.PREFLIGHT_API_KEY:
+            return jsonify({"success": False, "error": "Invalid API key"}), 401
+        return None
+
     # 请求日志中间件
     @app.before_request
     def log_request():
