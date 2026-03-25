@@ -54,9 +54,11 @@ Exceptions: Touch targets for the Google OAuth button and tab switcher must be m
 | Role | Size | Weight | Line Height |
 |------|------|--------|-------------|
 | Body | 16px | 400 (regular) | 1.5 |
-| Label | 14px | 500 (medium) | 1.4 |
+| Label | 14px | 400 (regular) | 1.4 |
 | Heading | 24px | 700 (bold) | 1.2 |
-| Display | 40px | 800 (extrabold) | 1.1 |
+| Display | 40px | 700 (bold) | 1.1 |
+
+**Weight rationale:** Two weights only — 400 and 700. Label at 14px is visually distinct from Body at 16px through size alone; a third weight is unnecessary. Display at 40px reads as dominant from scale alone; extrabold (800) over bold (700) is imperceptible at that size in practice.
 
 **Font pairing:**
 - Headings and Display: `Plus Jakarta Sans` — rounded, energetic, marketers read this as confident and modern (source: CONTEXT.md D-04, RESEARCH.md recommendation)
@@ -127,7 +129,7 @@ Components to build in Phase 1. All go in `src/components/`:
 | `Input` | `label`, `error?: string`, `type` | Secondary bg fill, accent focus ring (2px), error state with destructive border + message below |
 | `Tabs` | `tabs: {label, value}[]`, `value`, `onChange` | Pill-style tab switcher. Active tab uses accent underline indicator, 44px min height |
 | `Card` | `className?` | Rounded-2xl, secondary bg, subtle shadow (`shadow-sm`). Wrapper for auth forms |
-| `ThemeToggle` | none | Icon button: Sun/Moon from lucide-react. Toggles dark/light. 44px touch target |
+| `ThemeToggle` | none | Icon button: Sun/Moon from lucide-react. Toggles dark/light. 44px touch target. `aria-label="Toggle dark mode"`. Include a `title` attribute with the same text so desktop users see a native browser tooltip on hover |
 | `Spinner` | `size?: sm\|md` | Animated ring, accent color |
 
 ### `auth/` — Auth-specific
@@ -279,7 +281,7 @@ Protected (AUTH-05). Shown after login (D-11).
 - Google button has `aria-label="Sign in with Google"` (icon-only fallback)
 - Color contrast: stone-900 on stone-50 = 17.6:1 (exceeds WCAG AA 4.5:1)
 - Touch targets: minimum 44px height on all interactive elements (GoogleButton, ThemeToggle, tabs)
-- ThemeToggle has `aria-label="Toggle dark mode"`
+- ThemeToggle has `aria-label="Toggle dark mode"` and `title="Toggle dark mode"` for desktop tooltip visibility
 
 ---
 
