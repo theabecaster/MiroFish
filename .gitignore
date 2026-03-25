@@ -9,6 +9,8 @@ Thumbs.db
 .env.development
 .env.test
 .env.production
+.env.openai
+.env.local-model
 
 # Python
 __pycache__/

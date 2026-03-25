@@ -67,25 +67,7 @@ Copy `.env.example` to `.env`. Required keys: `LLM_API_KEY`, `LLM_BASE_URL`, `LL
 - Projects and tasks persist as JSON files in `backend/app/uploads/`
 - Vite proxies `/api` requests to the Flask backend during development
 
-<!-- GSD:project-start source:PROJECT.md -->
-## Project
-
-**Preflight**
-
-Preflight is a pre-launch ad and content simulation platform for marketers. Users upload their creative (image, video thumbnail, or ad copy), describe their target audience through a guided wizard, ask their questions — and Preflight runs a behavioral simulation via the MiroFish engine, returning a structured report predicting how their audience will react before they spend a dollar. Built for marketers, not researchers. No jargon, no setup, no code.
-
-**Core Value:** Marketers can simulate audience reactions to their creative before spending real money — upload, describe, ask, get answers in plain English.
-
-### Constraints
-
-- **Tech stack (frontend):** Next.js 15 App Router, TypeScript — deployed on Vercel, separate repo
-- **Tech stack (backend):** Supabase (Auth, DB, Storage, Realtime), Stripe for payments
-- **Tech stack (simulation):** Existing Flask + MiroFish pipeline on Hetzner — extend, don't rewrite
-- **License:** AGPL-3.0 — all source code must be publicly available
-- **LLM cost:** $0 to Preflight — all LLM calls use user's own API key
-- **Infrastructure:** Vercel free tier (frontend), Hetzner CX32 $8.20/mo (MiroFish backend)
-- **Existing code:** MiroFish Vue frontend and Flask API must remain functional and untouched for existing users
-<!-- GSD:project-end -->
+<!-- GSD: Project and planning context now lives in parent directory (Preflight/CLAUDE.md and Preflight/.planning/) -->
 
 <!-- GSD:stack-start source:codebase/STACK.md -->
 ## Technology Stack
@@ -369,22 +351,4 @@ Preflight is a pre-launch ad and content simulation platform for marketers. User
 ## Cross-Cutting Concerns
 <!-- GSD:architecture-end -->
 
-<!-- GSD:workflow-start source:GSD defaults -->
-## GSD Workflow Enforcement
-
-Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
-
-Use these entry points:
-- `/gsd:quick` for small fixes, doc updates, and ad-hoc tasks
-- `/gsd:debug` for investigation and bug fixing
-- `/gsd:execute-phase` for planned phase work
-
-Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
-<!-- GSD:workflow-end -->
-
-<!-- GSD:profile-start -->
-## Developer Profile
-
-> Profile not yet configured. Run `/gsd:profile-user` to generate your developer profile.
-> This section is managed by `generate-claude-profile` -- do not edit manually.
-<!-- GSD:profile-end -->
+<!-- GSD: Workflow enforcement and developer profile now in parent CLAUDE.md (Preflight/CLAUDE.md) -->
