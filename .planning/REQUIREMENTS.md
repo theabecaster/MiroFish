@@ -131,70 +131,70 @@ Explicitly excluded. Documented to prevent scope creep.
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+Which phases cover which requirements. Updated during roadmap revision 2026-03-24.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | — | Pending |
-| AUTH-02 | — | Pending |
-| AUTH-03 | — | Pending |
-| AUTH-04 | — | Pending |
-| AUTH-05 | — | Pending |
-| ONBD-01 | — | Pending |
-| ONBD-02 | — | Pending |
-| ONBD-03 | — | Pending |
-| ONBD-04 | — | Pending |
-| ONBD-05 | — | Pending |
-| ONBD-06 | — | Pending |
-| CRTV-01 | — | Pending |
-| CRTV-02 | — | Pending |
-| CRTV-03 | — | Pending |
-| CRTV-04 | — | Pending |
-| CRTV-05 | — | Pending |
-| AUDC-01 | — | Pending |
-| AUDC-02 | — | Pending |
-| AUDC-03 | — | Pending |
-| AUDC-04 | — | Pending |
-| SIMU-01 | — | Pending |
-| SIMU-02 | — | Pending |
-| SIMU-03 | — | Pending |
-| SIMU-04 | — | Pending |
-| SIMU-05 | — | Pending |
-| SIMU-06 | — | Pending |
-| SIMU-07 | — | Pending |
-| REPT-01 | — | Pending |
-| REPT-02 | — | Pending |
-| REPT-03 | — | Pending |
-| REPT-04 | — | Pending |
-| REPT-05 | — | Pending |
-| REPT-06 | — | Pending |
-| REPT-07 | — | Pending |
-| BILL-01 | — | Pending |
-| BILL-02 | — | Pending |
-| BILL-03 | — | Pending |
-| BILL-04 | — | Pending |
-| BILL-05 | — | Pending |
-| MFBE-01 | — | Pending |
-| MFBE-02 | — | Pending |
-| MFBE-03 | — | Pending |
-| MFBE-04 | — | Pending |
-| MFBE-05 | — | Pending |
-| INFR-01 | — | Pending |
-| INFR-02 | — | Pending |
-| INFR-03 | — | Pending |
-| INFR-04 | — | Pending |
-| INFR-05 | — | Pending |
-| INFR-06 | — | Pending |
-| SCRN-01 | — | Pending |
-| SCRN-02 | — | Pending |
-| SCRN-03 | — | Pending |
-| SCRN-04 | — | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Pending |
+| AUTH-05 | Phase 1 | Pending |
+| ONBD-01 | Phase 6 | Pending |
+| ONBD-02 | Phase 6 | Pending |
+| ONBD-03 | Phase 6 | Pending |
+| ONBD-04 | Phase 6 | Pending |
+| ONBD-05 | Phase 6 | Pending |
+| ONBD-06 | Phase 6 | Pending |
+| CRTV-01 | Phase 3 | Pending |
+| CRTV-02 | Phase 3 | Pending |
+| CRTV-03 | Phase 3 | Pending |
+| CRTV-04 | Phase 3 | Pending |
+| CRTV-05 | Phase 3 | Pending |
+| AUDC-01 | Phase 4 | Pending |
+| AUDC-02 | Phase 4 | Pending |
+| AUDC-03 | Phase 4 | Pending |
+| AUDC-04 | Phase 4 | Pending |
+| SIMU-01 | Phase 4 | Pending |
+| SIMU-02 | Phase 4 | Pending |
+| SIMU-03 | Phase 4 | Pending |
+| SIMU-04 | Phase 4 | Pending |
+| SIMU-05 | Phase 4 | Pending |
+| SIMU-06 | Phase 4 | Pending |
+| SIMU-07 | Phase 4 | Pending |
+| REPT-01 | Phase 5 | Pending |
+| REPT-02 | Phase 5 | Pending |
+| REPT-03 | Phase 5 | Pending |
+| REPT-04 | Phase 5 | Pending |
+| REPT-05 | Phase 5 | Pending |
+| REPT-06 | Phase 5 | Pending |
+| REPT-07 | Phase 5 | Pending |
+| BILL-01 | Phase 7 | Pending |
+| BILL-02 | Phase 7 | Pending |
+| BILL-03 | Phase 7 | Pending |
+| BILL-04 | Phase 7 | Pending |
+| BILL-05 | Phase 7 | Pending |
+| MFBE-01 | Phase 2 | Pending |
+| MFBE-02 | Phase 2 | Pending |
+| MFBE-03 | Phase 2 | Pending |
+| MFBE-04 | Phase 2 | Pending |
+| MFBE-05 | Phase 2 | Pending |
+| INFR-01 | Phase 1 | Pending |
+| INFR-02 | Phase 1 | Pending |
+| INFR-03 | Phase 1 | Pending |
+| INFR-04 | Phase 6 | Pending |
+| INFR-05 | Phase 5 | Pending |
+| INFR-06 | Phase 1 | Pending |
+| SCRN-01 | Phase 4 | Pending |
+| SCRN-02 | Phase 4 | Pending |
+| SCRN-03 | Phase 5 | Pending |
+| SCRN-04 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 50 total
-- Mapped to phases: 0
-- Unmapped: 50
+- v1 requirements: 54 total
+- Mapped to phases: 54
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-24*
-*Last updated: 2026-03-24 after initial definition*
+*Last updated: 2026-03-24 — phase order revised to prioritize local end-to-end workflow before billing/onboarding polish*
