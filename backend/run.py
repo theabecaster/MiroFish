@@ -48,3 +48,6 @@ def main():
 if __name__ == '__main__':
     main()
 
+# Gunicorn entry point
+app = create_app()
+
