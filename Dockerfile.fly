@@ -14,6 +14,13 @@ RUN uv sync --frozen
 
 FROM python:3.11-slim
 
+# Install Node.js 20 for pipeline-runner (injected at runtime via env var)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl ca-certificates && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app/backend
 
 # Copy venv from builder
@@ -22,10 +29,14 @@ COPY --from=builder /app/backend/.venv /app/backend/.venv
 # Copy backend source
 COPY backend/ ./
 
+# Copy entrypoint
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 RUN mkdir -p /app/backend/uploads
 
 ENV PATH="/app/backend/.venv/bin:$PATH"
 
 EXPOSE 5001
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5001", "--workers", "1", "--threads", "4", "--timeout", "7200", "run:app"]
+ENTRYPOINT ["/app/entrypoint.sh"]
