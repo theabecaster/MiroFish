@@ -322,7 +322,61 @@ class ZepEntityReader:
         
         logger.info(f"筛选完成: 总节点 {total_count}, 符合条件 {len(filtered_entities)}, "
                    f"实体类型: {entity_types_found}")
-        
+
+        # Fallback: if strict filtering found 0 entities, Zep likely didn't
+        # classify any nodes into the ontology types (all have generic "Entity"
+        # labels). Use all nodes rather than failing — the entity data (names,
+        # summaries, relationships) is still valid for profile generation.
+        if len(filtered_entities) == 0 and total_count > 0:
+            logger.warning(
+                f"严格筛选返回0个实体，回退到使用所有 {total_count} 个节点 "
+                f"(Zep未将节点分类到本体类型)"
+            )
+            entity_types_found = {"Entity"}
+            for node in all_nodes:
+                entity = EntityNode(
+                    uuid=node["uuid"],
+                    name=node["name"],
+                    labels=node.get("labels", []),
+                    summary=node["summary"],
+                    attributes=node["attributes"],
+                )
+                if enrich_with_edges:
+                    related_edges = []
+                    related_node_uuids = set()
+                    for edge in all_edges:
+                        if edge["source_node_uuid"] == node["uuid"]:
+                            related_edges.append({
+                                "direction": "outgoing",
+                                "edge_name": edge["name"],
+                                "fact": edge["fact"],
+                                "target_node_uuid": edge["target_node_uuid"],
+                            })
+                            related_node_uuids.add(edge["target_node_uuid"])
+                        elif edge["target_node_uuid"] == node["uuid"]:
+                            related_edges.append({
+                                "direction": "incoming",
+                                "edge_name": edge["name"],
+                                "fact": edge["fact"],
+                                "source_node_uuid": edge["source_node_uuid"],
+                            })
+                            related_node_uuids.add(edge["source_node_uuid"])
+                    entity.related_edges = related_edges
+                    related_nodes = []
+                    for related_uuid in related_node_uuids:
+                        if related_uuid in node_map:
+                            related_node = node_map[related_uuid]
+                            related_nodes.append({
+                                "uuid": related_node["uuid"],
+                                "name": related_node["name"],
+                                "labels": related_node["labels"],
+                                "summary": related_node.get("summary", ""),
+                            })
+                    entity.related_nodes = related_nodes
+                filtered_entities.append(entity)
+
+            logger.info(f"回退筛选完成: 使用全部 {len(filtered_entities)} 个节点")
+
         return FilteredEntities(
             entities=filtered_entities,
             entity_types=entity_types_found,
